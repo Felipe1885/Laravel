@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Listing;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// All Listings
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Latest Listings',
-        'listings' => [
-            [
-                'id' => 1,
-                'title' => 'Listing One',
-                'description' => 'OI GENTE TUDO BEM COM VOCES'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Listing Two',
-                'description' => 'EU TO BEM E VOCES'
-            ]
-        ]
+        'listings' => Listing::all()
+    ]);
+});
+
+// Single Listings
+Route::get('/listings/{id}', function ($id) {
+    return view ('listing', [
+        'listing' => Listing::find($id)
     ]);
 });
